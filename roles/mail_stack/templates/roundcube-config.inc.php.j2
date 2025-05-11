@@ -1,0 +1,9 @@
+<?php
+$config = array();
+$config['db_dsnw'] = 'mysql://roundcube:{{ roundcube_db_password }}@localhost/roundcubemail';
+$config['default_host'] = 'localhost';
+$config['smtp_server'] = 'localhost';
+$config['smtp_port'] = 25;
+$config['product_name'] = '{{ mail_service_name }}';
+$config['plugins'] = array('archive', 'zipdownload');
+?>

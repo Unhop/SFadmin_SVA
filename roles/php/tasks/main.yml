@@ -1,0 +1,28 @@
+---
+- name: Add PHP repository
+  apt_repository:
+    repo: ppa:ondrej/php
+    state: present
+
+- name: Install PHP and modules
+  apt:
+    name: "{{ php_packages }}"
+    state: present
+    update_cache: yes
+  vars:
+    php_packages:
+      - php7.4
+      - php7.4-fpm
+      - php7.4-mysql
+      - php7.4-curl
+      - php7.4-gd
+      - php7.4-mbstring
+      - php7.4-xml
+      - php7.4-zip
+      - libapache2-mod-php7.4
+
+- name: Ensure PHP-FPM is running
+  service:
+    name: php7.4-fpm
+    enabled: yes
+    state: started

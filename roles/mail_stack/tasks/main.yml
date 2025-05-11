@@ -1,0 +1,45 @@
+---
+- name: Install Postfix
+  apt:
+    name: postfix
+    state: present
+    update_cache: yes
+
+- name: Install Dovecot
+  apt:
+    name: dovecot-core dovecot-imapd dovecot-pop3d
+    state: present
+    update_cache: yes
+
+- name: Install Roundcube
+  apt:
+    name: roundcube roundcube-mysql roundcube-plugins
+    state: present
+    update_cache: yes
+
+- name: Configure Postfix
+  template:
+    src: main.cf.j2
+    dest: /etc/postfix/main.cf
+  notify: restart postfix
+
+- name: Configure Dovecot
+  template:
+    src: dovecot.conf.j2
+    dest: /etc/dovecot/dovecot.conf
+  notify: restart dovecot
+
+- name: Configure Roundcube
+  template:
+    src: roundcube-config.inc.php.j2
+    dest: /etc/roundcube/config.inc.php
+  notify: restart apache2
+
+- name: Ensure services are running
+  service:
+    name: "{{ item }}"
+    enabled: yes
+    state: started
+  loop:
+    - postfix
+    - dovecot

@@ -1,0 +1,12 @@
+filebeat.inputs:
+- type: log
+  enabled: true
+  paths:
+    - /var/log/*.log
+    - /var/log/nginx/*.log
+    - /var/log/apache2/*.log
+
+output.elasticsearch:
+  hosts: ["{{ elk_server }}:9200"]
+  username: "{{ elastic | default('filebeat') }}"
+  password: "{{ password }}"
