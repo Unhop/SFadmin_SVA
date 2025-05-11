@@ -1,9 +1,0 @@
-PidFile=/var/run/zabbix/zabbix_agent2.pid
-LogFile=/var/log/zabbix/zabbix_agent2.log
-LogFileSize=0
-Server=10.0.0.1
-ServerActive=10.0.0.1
-Hostname={{ inventory_hostname }}
-HostMetadata={{ zabbix_host_metadata | default('Linux server') }}
-Include=/etc/zabbix/zabbix_agent2.d/*.conf
-
